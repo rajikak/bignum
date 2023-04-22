@@ -1,0 +1,8 @@
+x = ?10 rho 100
+
+# indexing 
+x[1] # 12
+
+x[1 9 3] # 12 64 14
+
+up x # sort the vector and get the index of sorted elementes

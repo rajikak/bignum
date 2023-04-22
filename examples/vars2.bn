@@ -1,0 +1,17 @@
+x = 5 5 rho iota 75
+x
+x**2
+x**3
+x/2
+x**10
+
+# inner product
+x = 2**iota 5;x # 2 4 8 16 32
+
+y = 3**iota 5;y # 3 9 27 81 243
+
+x +.* y # 9330
+
+x o.* y # outer product 
+
+x o.== x # eigen matrix

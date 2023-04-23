@@ -13,13 +13,14 @@ available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.
 * [ ] Generated lexer + parser pair
 * [ ] Compare performance with ivy implementation (https://pkg.go.dev/robpike.io/ivy#section-readme)
 * [ ] Compare performance with Go, Rust, Python, C, C++, Java math libraries
+* [ ] Extend the compiler to support [Discreate mathematics](https://a.co/d/abDKSbE)
 
 ## Unary Operators
 
 | Name            | Operator | Description |
 |-----------------|----------|------------|
 | Index generator | iota B   | Vector of the first B integers |
-| Paragraph       |          | Text       |
+| Random number generator| ?B| Random number between 0 and B  |
 
 
 ## Binary operators

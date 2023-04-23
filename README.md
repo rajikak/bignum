@@ -19,8 +19,8 @@ available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.
 
 | Name            | Operator | Description |
 |-----------------|----------|------------|
-| Index generator | iota B   | Vector of the first B integers |
-| Random number generator| ?B| Random number between 0 and B  |
+| Index generator | `iota B`   | Vector of the first B integers |
+| Random number generator| `?B`| Random number between 0 and B  |
 
 
 ## Binary operators

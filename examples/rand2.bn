@@ -1,5 +1,0 @@
-?100 
-
-?10 rho 100 # genrate a vector of length 10 of random numbers below 100
-
-x = ?10 rho 100

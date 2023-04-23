@@ -1,2 +1,0 @@
-x = 5 + 5 # assign to a variable
-x**x 	  # 100

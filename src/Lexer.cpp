@@ -90,9 +90,6 @@ void Lexer::nextToken(Token &token) {
 		newToken(token, BufferPtr + 1, Token::SLASH);
 		return;
 	case '*':
-		while (*(BufferPtr + 1) && charinfo::isWhiteSpace(*(BufferPtr + 1)))
-			++BufferPtr;
-
 		if(*(BufferPtr + 1) == '*') {
 			newToken(token, BufferPtr + 2, Token::POWER);
 			BufferPtr += 1;

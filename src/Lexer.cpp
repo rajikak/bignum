@@ -25,16 +25,16 @@ void Lexer::printToken(Token Tok) {
 	map<Token::TokenType, string> m{
 			{Token::ILLEGAL, "illegal token"},
 			{Token::EOI, "end of input"},
-			{Token::PLUS, "operator"},
-			{Token::MINUS, "operator"},
-			{Token::ASTERRISK, "operator"},
-			{Token::POWER, "operator"},
-			{Token::SLASH, "operator"},
-			{Token::E, "operator"},
-			{Token::ITOA, "operator"},
-			{Token::RHO, "operator"},
+			{Token::PLUS, "operator(+)"},
+			{Token::MINUS, "operator(-)"},
+			{Token::ASTERRISK, "operator(*)"},
+			{Token::POWER, "operator(**)"},
+			{Token::SLASH, "operator(/)"},
+			{Token::E, "operator(e)"},
+			{Token::ITOA, "operator(itoa)"},
+			{Token::RHO, "operator(rho)"},
 			{Token::NUMBER, "number"},
-			{Token::RANDOM, "operator"}
+			{Token::RANDOM, "operator(?)"}
 	};
 
 	cout << "[" << Tok.getLiteral().str() << "," << m[Tok.getType()] << "]" << endl;
@@ -75,11 +75,10 @@ void Lexer::nextToken(Token &token) {
 			} else {
 				BufferPtr += 1;
 			}
-
-			if (*BufferPtr == '\0'){
-				newToken(token, BufferPtr, Token::ILLEGAL);
-				return;
-			}
+		}
+		if (*BufferPtr == '\0'){
+			newToken(token, BufferPtr, Token::ILLEGAL);
+			return;
 		}
 	case '+':
 		newToken(token, BufferPtr + 1, Token::PLUS);
@@ -91,9 +90,15 @@ void Lexer::nextToken(Token &token) {
 		newToken(token, BufferPtr + 1, Token::SLASH);
 		return;
 	case '*':
+		while (*(BufferPtr + 1) && charinfo::isWhiteSpace(*(BufferPtr + 1)))
+			++BufferPtr;
+
 		if(*(BufferPtr + 1) == '*') {
+			newToken(token, BufferPtr + 2, Token::POWER);
 			BufferPtr += 1;
-			newToken(token, BufferPtr, Token::POWER);
+			return;
+		} else {
+			newToken(token, BufferPtr + 1, Token::ASTERRISK);
 			return;
 		}
 
@@ -102,10 +107,6 @@ void Lexer::nextToken(Token &token) {
 			newToken(token, BufferPtr, Token::ILLEGAL);
 			return;
 		}
-		
-		// skip white spaces
-		while (*BufferPtr && charinfo::isWhiteSpace(*BufferPtr))
-			++BufferPtr;
 	case '?':
 		newToken(token, BufferPtr + 1, Token::RANDOM);
 		return;

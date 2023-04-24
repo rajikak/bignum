@@ -4,17 +4,6 @@ This tutorial walks through how to implement a compiler using LLVM for a scienti
 available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.md).
 
 
-* [ ] Introduction to IVY and document BigNumber calculator examples and syntax
-* [ ] BNF grammar and language spec
-* [ ] LLVM tool chain and howto
-* [ ] Same compiler just using Go
-* [ ] Handwritten lexer
-* [ ] Handwritten parser
-* [ ] Generated lexer + parser pair
-* [ ] Compare performance with ivy implementation (https://pkg.go.dev/robpike.io/ivy#section-readme)
-* [ ] Compare performance with Go, Rust, Python, C, C++, Java math libraries
-* [ ] Extend the compiler to support [Discreate mathematics](https://a.co/d/abDKSbE)
-
 ## Unary Operators
 
 | Name            | Operator | Description |
@@ -41,12 +30,14 @@ available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.
 | `23 + 45`                          | `68`                                                              |
 | `1e10`                             | `10000000000`                                                     |
 | `1e100`                            | `1e100`                                                           |
-| `2^64`                             | `1.8446744e+19`                                                   |
-| `2^640`                            | `4.562441e+192`                                                   |
+| `2 ** 64`                          | `1.8446744e+19`                                                   |
+| `2 ** 640`                         | `4.562441e+192`                                                   |
+| `2.1 + 3.2`                        | `5.3`                                                             |
+| `2.121212122121 + 3.1212121212`    | `5.24242424332`|
 | `1 2 3 4 5 6`                      | `[1 2 3 4 5 6]` (Vector)                                          |
 | `1 2 3 + 4 5 6`                    | `[5 7 9]`                                                         |
 | `itoa 10`                          | `[1 2 3 4 5 6 7 8 9 10]`                                          |
-| `2 ** itoa 100`                    | `[2 4 8 16 32 64]`                                                |
+| `2 ** itoa 10`                     | `[2 4 8 16 32 64]`                                                |
 | `(2 ** itoa 100) == (1<<itoa 100)` ||
 | `5 rho 1`                          | `[1 1 1 1 1]`                                                     |
 | `5 5 rho 1`                        | `5x5 matrix of values 1`                                          |
@@ -61,6 +52,8 @@ available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.
 |||
 
 ## References
+* [An Introduction to APL](https://www.youtube.com/watch?v=UltnvW83_CQ)
+* [APL demonstration 1975](https://www.youtube.com/watch?v=_DTpQ4Kk2wA)
 * [ivy](https://pkg.go.dev/robpike.io/ivy#section-readme)
 * [Implementing a bignum calculator with Rob Pike](https://www.youtube.com/watch?v=PXoG0WX0r_E&t=1121s)
 * [Lexical Scanning in Go - Rob Pike](https://www.youtube.com/watch?v=HxaD_trXwRE)

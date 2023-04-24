@@ -64,6 +64,23 @@ void Lexer::nextToken(Token &token) {
 
 	switch (*BufferPtr) {
 
+	case '#':
+		// skip comments
+		BufferPtr += 1;
+		while(true) {
+			if (*BufferPtr == '\0') {
+				BufferPtr += 1;
+				newToken(token, BufferPtr, Token::COMMENT);
+				return;
+			} else {
+				BufferPtr += 1;
+			}
+
+			if (*BufferPtr == '\0'){
+				newToken(token, BufferPtr, Token::ILLEGAL);
+				return;
+			}
+		}
 	case '+':
 		newToken(token, BufferPtr + 1, Token::PLUS);
 		return;
@@ -109,8 +126,13 @@ void Lexer::nextToken(Token &token) {
 				++end;
 			newToken(token, end, Token::NUMBER);
 		}
-		
 		return;
 	}
+}
+
+void Lexer::newToken(Token &Tok, const char *TokenEnd, Token::TokenType Type) {
+	Tok.Type = Type;
+	Tok.Literal = llvm::StringRef(BufferPtr, TokenEnd - BufferPtr);
+	BufferPtr = TokenEnd; // point to next possible token
 }
 

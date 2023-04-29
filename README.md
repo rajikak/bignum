@@ -46,10 +46,39 @@ available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.
 | `?10 rho 100`                      | Vector of size `(1x100)` of random numbers below between 0 and 10 |
 | `1 << 1 2 3 4 5`                   | `[2 4 8 16 32]`                                                   |
  
-## GRAMMAR
-|BNF| Description |
-|----|-------------|
-|||
+## Grammar
+```
+Program        -> Statements
+               
+Statements     -> Statement ; Statement
+                | Statement
+                
+Statement      -> Expression
+               
+Expression     -> Operand
+                | Operand BinaryOp Expression
+               
+Operand        -> ( Expression )
+               | Operand
+               | Number
+               | Rational
+               | Vector
+               | Operand [ Expression ]
+               | UnaryOperator Expression
+
+BinaryOperator | +
+               | -  
+               | /  
+               | *
+               | **
+               | e
+               | rho
+               | itoa
+
+UnaryOperator  | itoa
+               | ?
+               | << 
+```
 
 ## References
 * [An Introduction to APL](https://www.youtube.com/watch?v=UltnvW83_CQ)

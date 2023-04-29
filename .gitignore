@@ -19,3 +19,5 @@ cool
 # vendor/
 *.idea/
 bignum
+*/*.DS_Store
+.DS_Store

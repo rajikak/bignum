@@ -31,7 +31,7 @@ int main() {
 		"itoa 15",
 		"16 rho 17",
 		"18 # comment",
-
+		"10 e 3",
 	};
 
 	for (string s: suite) {

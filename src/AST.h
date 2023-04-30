@@ -33,14 +33,24 @@ class Program: public AST {
 		Program(vector<Statment> Stmts) {
 			Stmts = Stmts;
 		}
+		AST *parse();
 };
 
-class Expression: public Expr {
+class Expression: public AST {
 	pulic:
 		Expression() {}
 };
 
-class Statment: public Expression {};
+class Statment: public Expression {
+	Expression *E;
+
+	public:
+		Statment(Expression *E): E(E) {}
+		Expression *getExpression() { return E; }
+		virtual void accept(ASTVisitor &V) override {
+			V.visit(*this);
+		}
+};
 
 class BinaryOperator : public Expression {
 	public:

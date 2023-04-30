@@ -6,21 +6,22 @@ available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.
 
 ## Unary Operators
 
-| Name            | Operator | Description |
-|-----------------|----------|------------|
-| Index generator | `iota B`   | Vector of the first B integers |
-| Random number generator| `?B`| Random number between 0 and B  |
+| Name                    | Operator | Description |
+|-------------------------|----------|------------|
+| Index generator         | `iota B` | Vector of the first B integers |
+| Random number generator | `?B`     | Random number between 0 and B  |
 
 
 ## Binary operators
 
 `A`, `B` can be scalars or vectors, or multi-dimensional vectors (matrices).    
 
-| Name     | Operator | Description       |
-|----------|----------|-------------------|
-| Add      | A + B    | Sum A and B       |
-| Subtract | A - B    | A subtract B      |
-| Multiply | A * B    | A multiplied by B |
+| Name    | Operator | Description       |
+|---------|----------|-------------------|
+| Add     | `A + B`    | Sum `A` and `B`       |
+| Subtract | `A - B`    | `A` subtract `B`      |
+| Multiply | `A * B`    | `A` multiplied by `B` |
+| Shift   | `n << A`   |  Shift `A` by `n` times|
    
 ## Examples
 
@@ -74,6 +75,7 @@ BinaryOperator | +
                | e
                | rho
                | itoa
+               | shift
 
 UnaryOperator  | itoa
                | ?

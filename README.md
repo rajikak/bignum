@@ -47,6 +47,9 @@ available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.
 | `?10 rho 100`                      | Vector of size `(1x100)` of random numbers below between 0 and 10 |
 | `1 << 1 2 3 4 5`                   | `[2 4 8 16 32]`                                                   |
 | `2 * log(10)`                      | `4.605170185988092`|
+| `+/itoa 15`		                 | `120` (add first 15 numbers together)|
+| `1 * 2 * 3`						 | `6` (3!)|
+| `*/itoa 3`						 | `6`|
  
 ## Grammar
 ```

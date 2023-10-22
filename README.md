@@ -50,6 +50,7 @@ available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.
 | `+/itoa 15`		                 | `120` (add first 15 numbers together)|
 | `1 * 2 * 3`						 | `6` (3!)|
 | `*/itoa 3`						 | `6`|
+| `2*itoa 2 + 3`					 | `2 4 6 8 10`|
  
 ## Grammar
 ```
@@ -85,6 +86,11 @@ UnaryOperator  | itoa
                | ?
                | << 
 ```
+
+## Parsing Rules
+* Unary operators apply to the rest of the line
+* Binary operators apply to the operand on left, rest of the line on right
+* Associative to the right
 
 ## References
 * [An Introduction to APL](https://www.youtube.com/watch?v=UltnvW83_CQ)

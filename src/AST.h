@@ -3,6 +3,8 @@
 
 #include "bignum.h"
 
+using namespace std;
+
 class AST;
 class Program;
 class Statment;
@@ -37,7 +39,7 @@ class Program: public AST {
 };
 
 class Expression: public AST {
-	pulic:
+	public:
 		Expression() {}
 };
 
@@ -78,8 +80,8 @@ class UnaryOperator: public Expression {
 		UnOp Op;
 
 	public:
-		UnaryOperator(UnOp Op, Expression *R): Op(Op), Right(R) {}
-		Expression getOperand() { return Operand; }
+		UnaryOperator(UnOp Op, Expression *E): Op(Op), Operand(E) {}
+		Expression *getOperand() { return Operand; }
 		UnOp getOperator() { return Op; }
 		virtual void accept(ASTVisitor &V) override {
 			V.visit(*this);

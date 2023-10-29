@@ -8,7 +8,7 @@ AST *Parser::parse() {
 }
 
 AST *Parser::parseProgram() {
-	Expr *E;
+	Expression *E;
 	return nullptr;
 }
 

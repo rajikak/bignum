@@ -11,7 +11,7 @@ class Token {
 	friend class Lexer;
 
 public:
-	enum TokenType : unsigned short {
+	enum TokenKind : unsigned short {
 		ILLEGAL,
 		EOI,
 		COMMENT,
@@ -33,17 +33,17 @@ public:
 	};
 
 private:
-	TokenType Type;
+	TokenKind Kind;
 	llvm::StringRef Literal;
 
 public:
-	TokenType getType() const { return Type; }
+	TokenKind getKind() const { return Kind; }
 	llvm::StringRef getLiteral() const { return Literal; }
-	bool is(TokenType T) const { return Type == T; }
-	bool isOneOf(TokenType T1, TokenType T2) const { return is(T1) || is(T2); }
+	bool is(TokenKind K) const { return Kind == K; }
+	bool isOneOf(TokenKind K1, TokenKind K2) const { return is(K1) || is(K2); }
 	template <typename... Ts>
-	bool isOneOf(TokenType T1, TokenType T2, Ts... Ks) const {
-		return is(T1) || isOneOf(T2, Ks...);
+	bool isOneOf(TokenKind K1, TokenKind K2, Ts... Ks) const {
+		return is(K1) || isOneOf(K2, Ks...);
 	}
 };
 
@@ -53,8 +53,8 @@ private:
 	const char *BufferStart; // input buffer is a C string ('\0')
 	const char *BufferPtr;
 
-	Token::TokenType lookupLongOperator(llvm::StringRef ident);
-	void newToken(Token &Tok, const char *TokEnd, Token::TokenType TokenType);
+	Token::TokenKind lookupLongOperator(llvm::StringRef ident);
+	void newToken(Token &Tok, const char *TokEnd, Token::TokenKind Kind);
 
 public:
 	Lexer(const llvm::StringRef &Buffer) {

@@ -11,15 +11,15 @@ class Parser {
 	bool HasError;
 
 	void error() {
-		llvm::errs() << "unexpected: " << Tok.getText() << "\n";
+		llvm::errs() << "unexpected: " << Tok.getLiteral() << "\n";
 		HasError = true;
 	}
 
 	void advance() {
-		Lex.next(Tok);
+		Lex.nextToken(Tok);
 	}
 
-	bool expect (Token::TokEnd Kind) {
+	bool expect (Token::TokenKind Kind) {
 		if (Tok.getKind() != Kind) {
 			error();
 			return false;
@@ -27,13 +27,13 @@ class Parser {
 		return true;
 	}
 
-	bool consume(Token::TokenEnd Kind) {
+	bool consume(Token::TokenKind Kind) {
 		if (!expect(Kind)) {
 			return false;
 		}
 
 		advance();
-		reuturn true;
+		return true;
 	}
 
 	AST *parseProgram();

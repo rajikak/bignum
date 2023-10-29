@@ -22,7 +22,7 @@ LLVM_READNONE inline bool isAlphaNumeric(char c) {
 
 
 void Lexer::printToken(Token Tok) {
-	map<Token::TokenType, string> m{
+	map<Token::TokenKind, string> m{
 			{Token::ILLEGAL, "illegal token"},
 			{Token::EOI, "end of input"},
 			{Token::PLUS, "operator(+)"},
@@ -37,11 +37,11 @@ void Lexer::printToken(Token Tok) {
 			{Token::RANDOM, "operator(?)"}
 	};
 
-	cout << "[" << Tok.getLiteral().str() << "," << m[Tok.getType()] << "]" << endl;
+	cout << "[" << Tok.getLiteral().str() << "," << m[Tok.getKind()] << "]" << endl;
 }
 
-Token::TokenType Lexer::lookupLongOperator(llvm::StringRef op) {
-	map<string, Token::TokenType> operators{
+Token::TokenKind Lexer::lookupLongOperator(llvm::StringRef op) {
+	map<string, Token::TokenKind> operators{
 		{"itoa", Token::ITOA},
 		{"rho", Token::RHO}
 	};
@@ -128,8 +128,8 @@ void Lexer::nextToken(Token &token) {
 	}
 }
 
-void Lexer::newToken(Token &Tok, const char *TokenEnd, Token::TokenType Type) {
-	Tok.Type = Type;
+void Lexer::newToken(Token &Tok, const char *TokenEnd, Token::TokenKind Kind) {
+	Tok.Kind = Kind;
 	Tok.Literal = llvm::StringRef(BufferPtr, TokenEnd - BufferPtr);
 	BufferPtr = TokenEnd; // point to next possible token
 }

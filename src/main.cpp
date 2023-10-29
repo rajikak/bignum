@@ -9,10 +9,10 @@ void tokens(vector<string> v) {
 		Token Tok;
 		do {
 			Lex.nextToken(Tok);
-			if (Tok.getType() != Token::EOI && Tok.getType() != Token::COMMENT) {
+			if (Tok.getKind() != Token::EOI && Tok.getKind() != Token::COMMENT) {
 				Lex.printToken(Tok);
 			}
-		} while (Tok.getType() != Token::EOI);
+		} while (Tok.getKind() != Token::EOI);
 	}
 }
 

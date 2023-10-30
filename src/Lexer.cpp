@@ -110,6 +110,12 @@ void Lexer::nextToken(Token &token) {
 	case 'e':
 		newToken(token, BufferPtr + 1, Token::E);
 		return;
+	/*case '.':
+		const char *end = BufferPtr + 1;
+		while (charinfo::isDigit(*end))
+			++end;
+		newToken(token, end, Token::NUMBER);
+		return;*/
 	default:
 		if (charinfo::isLetter(*BufferPtr)) {
 			// keyword
@@ -120,7 +126,7 @@ void Lexer::nextToken(Token &token) {
 			newToken(token, end, lookupLongOperator(Literal));
 		} else if (charinfo::isDigit(*BufferPtr)) {
 			const char *end = BufferPtr + 1;
-			while(charinfo::isDigit(*end))
+			while(charinfo::isDigit(*end) || *end == '.')
 				++end;
 			newToken(token, end, Token::NUMBER);
 		}

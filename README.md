@@ -54,11 +54,6 @@ available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.
  
 ## Grammar
 ```
-Program        -> Statements
-               
-Statements     -> Statement ; Statement
-                | Statement
-                
 Statement      -> Expression
                
 Expression     -> Operand

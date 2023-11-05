@@ -1,0 +1,47 @@
+#include "CodeGen.h"
+#include "bignum.h"
+
+using namespace llvm;
+
+namespace {
+
+class ToIRVisitor : public ASTVisitor {
+
+	Module *M;
+	IRBuilder<> Builder;
+	Type *VoidTy;
+	Type *Int32Ty;
+	Type *Int8PtrTy;
+	Type *Int8PtrPtrTy;
+	Constant *Int32Zero;
+	Value *V; // current value
+	StringMap<Value *> nameMap;
+
+	public:
+		ToIRVisitor(Module *M) : M(M), Builder(M->getContext()){
+			VoidTy = Type::getVoidTy(M->getContext());
+			Int32Ty = Type::getInt32Ty(M->getContext());
+			Int8PtrTy = Type::getInt8PtrTy(M->getContext());
+			Int8PtrPtrTy = Int8PtrTy->getPointerTo();
+			Int32Zero = ConstantInt::get(Int32Ty, 0, true);
+		}
+
+		void run(AST *Tree) {
+			FunctionType *MainFnTy = FunctionType::get(Int32Ty, {Int32Ty, Int8PtrPtrTy}, false);
+			Function *MainFn = Function::Create(MainFnTy, GlobalValue::ExternalLinkage, "main", M);
+			BasicBlock *BB = BasicBlock::Create(M->getContext(), "entry", MainFn);
+			Builder.SetInsertPoint(BB);
+
+			Tree->accept(*this);
+
+			// write the result back to console
+			FunctionType *WriteToConsoleFnTy = FunctionType::get(VoidTy, {Int32Ty}, false);
+			Function *WriteToConsoleFn = Function::Create(WriteToConsoleFnTy, GlobalValue::ExternalLinkage, "console_write", M); 
+		    Builder.CreateCall(WriteToConsoleFnTy, WriteToConsoleFn, {V});
+
+			Builder.CreateRet(Int32Zero);
+		}
+
+};
+
+}

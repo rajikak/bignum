@@ -36,8 +36,7 @@ class Parser {
 		return true;
 	}
 
-	AST *parseProgram();
-	Expression *parseStmt();
+	AST *parseCalc();
 	Expression *parseExpr();
 
 	public:

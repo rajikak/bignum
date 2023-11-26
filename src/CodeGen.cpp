@@ -36,7 +36,7 @@ class ToIRVisitor : public ASTVisitor {
 
 			// write the result to the console
 			FunctionType *WriteToConsoleFnTy = FunctionType::get(VoidTy, {Int32Ty}, false);
-			Function *WriteToConsoleFn = Function::Create(WriteToConsoleFnTy, GlobalValue::ExternalLinkage, "console_write", M); 
+			Function *WriteToConsoleFn = Function::Create(WriteToConsoleFnTy, GlobalValue::ExternalLinkage, "calc_write", M); 
 		    Builder.CreateCall(WriteToConsoleFnTy, WriteToConsoleFn, {V});
 
 			Builder.CreateRet(Int32Zero);
@@ -91,12 +91,9 @@ class ToIRVisitor : public ASTVisitor {
 		}
 
 		virtual void visit (Expression &Node) override {
-				
+	    	Node.accept(*this);
 		}
-			
-
 };
-
 }
 
 void CodeGen::compile(AST *Tree) {

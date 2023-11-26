@@ -30,17 +30,6 @@ class Expression: public AST {
 		Expression() {}
 };
 
-class Statment: public Expression {
-	Expression *E;
-
-	public:
-		Statment(Expression *E): E(E) {}
-		Expression *getExpression() { return E; }
-		virtual void accept(ASTVisitor &V) override {
-			V.visit(*this);
-		}
-};
-
 class BinaryOp : public Expression {
 	public:
 		enum BinOp {Plus, Minus, Mul, Div, Pow, Exp, Rho, Itoa};

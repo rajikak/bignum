@@ -34,7 +34,7 @@ class ToIRVisitor : public ASTVisitor {
 
 			Tree->accept(*this);
 
-			// write the result back to console
+			// write the result to the console
 			FunctionType *WriteToConsoleFnTy = FunctionType::get(VoidTy, {Int32Ty}, false);
 			Function *WriteToConsoleFn = Function::Create(WriteToConsoleFnTy, GlobalValue::ExternalLinkage, "console_write", M); 
 		    Builder.CreateCall(WriteToConsoleFnTy, WriteToConsoleFn, {V});
@@ -42,6 +42,67 @@ class ToIRVisitor : public ASTVisitor {
 			Builder.CreateRet(Int32Zero);
 		}
 
+		virtual void visit(BinaryOp &Node) override {
+			Node.getLeft()->accept(*this);
+			Value *Left = V;
+			Node.getRight()->accept(*this);
+			Value *Right = V;
+
+			switch (Node.getOperator()){
+				case BinaryOp::Plus:
+					V = Builder.CreateNSWAdd(Left, Right);
+					break;
+				case BinaryOp::Minus:
+					V = Builder.CreateNSWSub(Left, Right);
+					break;
+				case BinaryOp::Mul:
+					V = Builder.CreateNSWMul(Left, Right);
+					break;
+				case BinaryOp::Div:
+					V = Builder.CreateSDiv(Left, Right);
+					break;
+				case BinaryOp::Pow:
+				case BinaryOp::Exp:
+				case BinaryOp::Rho:
+				case BinaryOp::Itoa:
+					cout << "error, binary operation not implemented, " << Node.getOperator() << endl; 
+					break;
+				default:
+					cout << "error, unsupported binary operation, " << Node.getOperator() << endl;
+					break;
+			}
+		};
+
+		virtual  void visit (UnaryOp &Node) override {
+			Node.getOperand()->accept(*this);
+			Value *Left = V;
+
+			switch (Node.getOperator()){
+				case UnaryOp::Itoa:
+					cout << "todo: handle `itoa` operator";
+					break;
+				case UnaryOp::Rand:
+					cout << "todo: handle `rand` operator";
+					break;
+				default:
+					cout << "error, unsupported unary operator, " << Node.getOperator() << endl;
+					break;
+			}
+		}
+
+		virtual void visit (Expression &Node) override {
+				
+		}
+			
+
 };
 
+}
+
+void CodeGen::compile(AST *Tree) {
+	LLVMContext Ctx;
+	Module *M = new Module("bignum", Ctx);
+	ToIRVisitor ToIR(M);
+	ToIR.run(Tree);
+	M->print(outs(), nullptr);
 }

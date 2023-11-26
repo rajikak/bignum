@@ -6,20 +6,16 @@
 using namespace std;
 
 class AST;
-class Program;
-class Statment;
 class Expression;
-class BinaryOperator;
-class UnaryOperator;
+class BinaryOp;
+class UnaryOp;
 
 class ASTVisitor {
 	public:
 		virtual void visit(AST &) {};
-		virtual void visit(Program &) = 0;
-		virtual void visit(Statment &) = 0;
 		virtual void visit(Expression &) = 0;
-		virtual void visit(BinaryOperator &) = 0;
-		virtual void visit(UnaryOperator &) = 0;
+		virtual void visit(UnaryOp &) = 0;
+		virtual void visit(BinaryOp &) = 0;
 };
 
 class AST {
@@ -28,15 +24,6 @@ class AST {
 		virtual void accept(ASTVisitor &V) = 0;
 };
 
-class Program: public AST {
-	private:
-		vector<Statment> Stmts;
-	public:
-		Program(vector<Statment> Stmts) {
-			Stmts = Stmts;
-		}
-		AST *parse();
-};
 
 class Expression: public AST {
 	public:
@@ -54,7 +41,7 @@ class Statment: public Expression {
 		}
 };
 
-class BinaryOperator : public Expression {
+class BinaryOp : public Expression {
 	public:
 		enum BinOp {Plus, Minus, Mul, Div, Pow, Exp, Rho, Itoa};
 	private:
@@ -63,7 +50,7 @@ class BinaryOperator : public Expression {
 		BinOp Op;
 
 	public:
-		BinaryOperator(BinOp Op, Expression *L, Expression *R): Op(Op), Left(L), Right(R) {}
+		BinaryOp(BinOp Op, Expression *L, Expression *R): Op(Op), Left(L), Right(R) {}
 		Expression *getLeft() { return Left; }
 		Expression *getRight() {return Right; }
 		BinOp getOperator() { return Op; }
@@ -72,15 +59,15 @@ class BinaryOperator : public Expression {
 		}
 };
 
-class UnaryOperator: public Expression {
+class UnaryOp: public Expression {
 	public:
-		enum UnOp {Itoa, Rand};
+		enum UnOp {Itoa, Rand/*(?)*/};
 	private:
 		Expression *Operand;
 		UnOp Op;
 
 	public:
-		UnaryOperator(UnOp Op, Expression *E): Op(Op), Operand(E) {}
+		UnaryOp(UnOp Op, Expression *E): Op(Op), Operand(E) {}
 		Expression *getOperand() { return Operand; }
 		UnOp getOperator() { return Op; }
 		virtual void accept(ASTVisitor &V) override {

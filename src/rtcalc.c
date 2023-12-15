@@ -3,5 +3,5 @@
 #include <stdlib.h>
 
 void calc_write(int v) {
-	printf("result: %d\n", v)
+	printf("result: %d\n", v);
 }

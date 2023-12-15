@@ -13,7 +13,7 @@ AST *Parser::parseCalc() {
 	expect(Token::EOI);
 	while(Tok.getKind() != Token::EOI)
 		advance();
-	return nullptr;
+	return E;
 }
 
 Expression *Parser::parseExpr() {

@@ -88,11 +88,17 @@ class ToIRVisitor : public ASTVisitor {
 					cout << "error, unsupported unary operator, " << Node.getOperator() << endl;
 					break;
 			}
-		}
+		};
 
 		virtual void visit (Expression &Node) override {
 	    	Node.accept(*this);
-		}
+		};
+
+		virtual void visit (Factor &Node) override {
+			int intVal;
+			Node.getVal().getAsInteger(10, intVal);
+			V = ConstantInt::get(Int32Ty, intVal, true);
+		};
 };
 }
 

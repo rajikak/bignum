@@ -1,3 +1,4 @@
+*.o
 credentials
 *.swp
 DS_Store

@@ -7,6 +7,7 @@ using namespace std;
 
 class AST;
 class Expression;
+class Factor;
 class BinaryOp;
 class UnaryOp;
 
@@ -14,6 +15,7 @@ class ASTVisitor {
 	public:
 		virtual void visit(AST &) {};
 		virtual void visit(Expression &) = 0;
+		virtual void visit(Factor &) = 0;
 		virtual void visit(UnaryOp &) = 0;
 		virtual void visit(BinaryOp &) = 0;
 };
@@ -30,19 +32,35 @@ class Expression: public AST {
 		Expression() {}
 };
 
+class Factor: public Expression {
+	public:
+		enum ValueKind {Number};
+	private:
+		ValueKind Kind;
+		llvm::StringRef Val;
+
+	public:
+		Factor(ValueKind Kind, llvm::StringRef Val): Kind(Kind), Val(Val){}
+		ValueKind getKind() { return Kind; };
+		llvm::StringRef getVal() { return Val; };
+		virtual void accept(ASTVisitor &V) override {
+			V.visit(*this);
+		}
+};
+
 class BinaryOp : public Expression {
 	public:
-		enum BinOp {Plus, Minus, Mul, Div, Pow, Exp, Rho, Itoa};
+		enum Operator {Plus, Minus, Mul, Div, Pow, Exp, Rho, Itoa};
 	private:
 		Expression *Left;
 		Expression *Right;
-		BinOp Op;
+		Operator Op;
 
 	public:
-		BinaryOp(BinOp Op, Expression *L, Expression *R): Op(Op), Left(L), Right(R) {}
+		BinaryOp(Operator Op, Expression *L, Expression *R): Op(Op), Left(L), Right(R) {}
 		Expression *getLeft() { return Left; }
 		Expression *getRight() {return Right; }
-		BinOp getOperator() { return Op; }
+		Operator getOperator() { return Op; }
 		virtual void accept(ASTVisitor &V) override {
 			V.visit(*this);
 		}
@@ -50,15 +68,15 @@ class BinaryOp : public Expression {
 
 class UnaryOp: public Expression {
 	public:
-		enum UnOp {Itoa, Rand/*(?)*/};
+		enum Operator {Itoa, Rand/*(?)*/};
 	private:
 		Expression *Operand;
-		UnOp Op;
+		Operator Op;
 
 	public:
-		UnaryOp(UnOp Op, Expression *E): Op(Op), Operand(E) {}
+		UnaryOp(Operator Op, Expression *E): Op(Op), Operand(E) {}
 		Expression *getOperand() { return Operand; }
-		UnOp getOperator() { return Op; }
+		Operator getOperator() { return Op; }
 		virtual void accept(ASTVisitor &V) override {
 			V.visit(*this);
 		}

@@ -6,6 +6,20 @@
 
 using namespace std;
 
+/*
+ * $ calc "with a: a*3" | llc –filetype=obj –o=expr.o
+ * $ clang –o expr expr.o rtcalc.c
+ * $ expr
+ * Enter a value for a: 4
+ * The result is: 12
+*/
+
+/**
+ * $ ./bigum "2 + 3" | llc -filetype=obj -o=expor.o
+ * $ clang -o expr expr.o rtclac.c
+ * $ ./expr
+ * 5
+ */
 
 static llvm::cl::opt<std::string>
 	Input(llvm::cl::Positional,

@@ -38,6 +38,8 @@ class Parser {
 
 	AST *parseCalc();
 	Expression *parseExpr();
+	Expression *parseTerm();
+	Expression *parseFactor();
 
 	public:
 		Parser(Lexer &Lex): Lex(Lex), HasError(false) {

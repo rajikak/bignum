@@ -17,6 +17,7 @@ jobs:
           ls ${{ github.workspace }}
       - uses: adrianjost/files-sync-action@v2.0.4
         with:
+          GIT_EMAIL: nrajikak@gmail.com
           FILE_PATTERNS: |
             ^LICENSE$
             ^.github/workflows/sync-.*

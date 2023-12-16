@@ -22,6 +22,9 @@ jobs:
             ^LICENSE$
             ^.github/workflows/sync-.*
             README.md
+            .gitignore
+            src/
+            Makefile
           GITHUB_TOKEN: '${{ secrets.BARANASOFTWARE_TOKEN }}'
           TARGET_REPOS: |
             baranasoftware/bignum:main

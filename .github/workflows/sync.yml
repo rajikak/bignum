@@ -1,8 +1,14 @@
-uses: adrianjost/files-sync-action@v2.0.4
-  with:
-    FILE_PATTERNS: |
-      ^LICENSE$
-      ^.github/workflows/sync-.*
-    TARGET_REPOS: |
-		baranasoftware/bignum:main
-    GITHUB_TOKEN: ${{ secrets.BARANALABS_TOKEN }}
+name: Sync
+jobs:
+  files:
+    name: Files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: adrianjost/files-sync-action@v2.0.4
+        with:
+          GITHUB_TOKEN: '${{ secrets.BARANALABS_TOKEN }}'
+          FILE_PATTERNS: |-
+            ^\.github\/workflows\/synced-.*\.yml$
+            ^LICENSE\.md$
+          TARGET_REPOS: |-
+			baranasoftware/bignum:main

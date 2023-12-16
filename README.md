@@ -3,6 +3,21 @@
 This tutorial walks through how to implement a compiler using LLVM for a scientific calculator. An introduction to LLVM and it's tool chain is 
 available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.md).
 
+## Build and Run 
+`LLVM_DIR` - LLVM location directory.
+```
+clang++	-I$LLVM_DIR/include 
+		-I$LLVM_DIR/llvm/include \
+		-I$LLVM_DIR/install/include/c++/v1 \
+		-L$LLVM_DIR/lib \
+		-std=c++20 src/*.cpp `llvm-config --cxxflags --ldflags ` -g -o bignum1
+```
+
+```
+./bignum1 "2 + 3" | llc -filetype=obj -o=bignum1.o
+$LLVM_DIR/bin/clang -cc1 src/rtcalc.c -o bignum1.o bignum
+./bignum
+```
 
 ## Unary Operators
 

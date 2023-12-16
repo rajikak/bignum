@@ -8,7 +8,7 @@ jobs:
         with:
           GITHUB_TOKEN: '${{ secrets.BARANALABS_TOKEN }}'
           FILE_PATTERNS: |-
-            ^\.github\/workflows\/synced-.*\.yml$
-            ^LICENSE\.md$
+			^LICENSE$
+      		^.github/workflows/sync-.*
           TARGET_REPOS: |-
 			baranasoftware/bignum:main

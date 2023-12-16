@@ -2,7 +2,7 @@ name: sync rajikak => baransoftware
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  sync rajikak => baranasoftware:
+  sync rajikak to baranasoftware:
     runs-on: ubuntu-latest
     steps:
       - uses: adrianjost/files-sync-action@v2.0.4

@@ -7,8 +7,8 @@ jobs:
       - uses: adrianjost/files-sync-action@v2.0.4
         with:
           GITHUB_TOKEN: '${{ secrets.BARANALABS_TOKEN }}'
-          FILE_PATTERNS: |
+          FILE_PATTERNS: |-
             ^\.github\/workflows\/synced-.*\.yml$
             ^LICENSE\.md$
-          TARGET_REPOS: |
+          TARGET_REPOS: |-
 			baranasoftware/bignum:main

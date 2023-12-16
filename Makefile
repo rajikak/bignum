@@ -1,6 +1,7 @@
+# https://stackoverflow.com/questions/48369566/clang-stdio-h-file-not-found
 default: c
 	./bignum1 "2 + 3" | llc -filetype=obj -o=bignum1.o
-	clang src/rtcalc.c -o bignum1.o bignum
+	clang -cc1 src/rtcalc.c -o bignum1.o bignum
 	./bignum
 	
 c: # compile

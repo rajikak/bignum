@@ -1,0 +1,10 @@
+uses: adrianjost/files-sync-action@v2.0.4
+  with:
+	GIT_EMAIL: nrajikak@gmail.com
+	GIT_USERNAME: rajikak 
+    FILE_PATTERNS: |
+      ^LICENSE$
+      ^.github/workflows/sync-.*
+    TARGET_REPOS: |
+		baranasoftware/bignum:main
+    GITHUB_TOKEN: ${{ secrets.BARANALABS_TOKEN }}

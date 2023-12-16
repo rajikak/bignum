@@ -21,6 +21,7 @@ jobs:
           FILE_PATTERNS: |
             ^LICENSE$
             ^.github/workflows/sync-.*
+            README.md
           GITHUB_TOKEN: '${{ secrets.BARANASOFTWARE_TOKEN }}'
           TARGET_REPOS: |
             baranasoftware/bignum:main

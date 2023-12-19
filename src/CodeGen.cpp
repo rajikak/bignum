@@ -21,7 +21,7 @@ class ToIRVisitor : public ASTVisitor {
 		ToIRVisitor(Module *M) : M(M), Builder(M->getContext()){
 			VoidTy = Type::getVoidTy(M->getContext());
 			Int32Ty = Type::getInt32Ty(M->getContext());
-			Int8PtrTy = Type::getInt8PtrTy(M->getContext());
+			Int8PtrTy = Type::getInt8Ty(M->getContext());
 			Int8PtrPtrTy = Int8PtrTy->getPointerTo();
 			Int32Zero = ConstantInt::get(Int32Ty, 0, true);
 		}

@@ -4,13 +4,34 @@ This tutorial walks through how to implement a compiler using LLVM for a scienti
 available [here](https://github.com/rajikak/rajikak/blob/master/llvm-tool-chain.md).
 
 ## Build and Run 
-`LLVM_DIR` - LLVM location directory.
+[Compile and run](https://github.com/rajikak/rajikak/blob/master/llvm-install.md) LLVM from the source and add the `bin` folder into `$PATH`. 
+
+### Using System Default
+Reference: https://andreasfertig.blog/2021/02/clang-and-gcc-on-macos-catalina-finding-the-include-paths/
 ```
-clang++	-I$LLVM_DIR/include 
-		-I$LLVM_DIR/llvm/include \
-		-I$LLVM_DIR/install/include/c++/v1 \
-		-L$LLVM_DIR/lib \
-		-std=c++20 src/*.cpp `llvm-config --cxxflags --ldflags ` -g -o bignum1
+$ export SDKROOT="`xcrun --show-sdk-path`"
+$ clang++ -std=c++20  src/*.cpp `llvm-config --cxxflags --ldflags --system-libs --libs core` -g -o bignum1 
+$ ./bignum1 "2 + 7" | llc -filetype=obj -o=bignum1.o 
+$ clang -o bignum bignum1.o src/rtcalc.c
+$ ./bignum
+result: 9
+```
+
+### Passing Header and Library Paths Externally
+This produced missing headers although header and library locations are passed externally. Just record here for reference.
+
+```
+$ clang++ \
+		-I/Users/kumarasiri/work/intbricks/llvm-project-llvmorg-14.0.0/install/include/c++/v1 \
+		-I/Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/usr/include/ \
+		-I/Users/kumarasiri/work/intbricks/llvm-project-llvmorg-14.0.0/install/include \
+		-L/Library/Developer/CommandLineTools/SDKs/MacOSX13.1.sdk/usr/lib \
+		-L/Users/kumarasiri/work/intbricks/llvm-project-llvmorg-14.0.0/install/lib \
+		 -std=c++20  src/*.cpp `llvm-config --cxxflags --ldflags --system-libs --libs core` -g -o bignum1
+$ ./bignum1 "2 + 7" | llc -filetype=obj -o=bignum1.o
+$ clang -o bignum bignum1.o src/rtcalc.c
+$ ./bignum 
+result: 9
 ```
 
 ```

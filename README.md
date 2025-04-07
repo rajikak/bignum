@@ -124,6 +124,8 @@ UnaryOperator  | itoa
 * Associative to the right
 
 ## References
+* [LLVM for Grad Students](https://www.cs.cornell.edu/~asampson/blog/llvm.html)
+* [Life of an instruction in LLVM](https://eli.thegreenplace.net/2012/11/24/life-of-an-instruction-in-llvm)
 * [An Introduction to APL](https://www.youtube.com/watch?v=UltnvW83_CQ)
 * [APL demonstration 1975](https://www.youtube.com/watch?v=_DTpQ4Kk2wA)
 * [ivy](https://pkg.go.dev/robpike.io/ivy#section-readme)
